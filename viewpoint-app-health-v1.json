@@ -1,0 +1,762 @@
+{
+    "board_title": "Application Health Screenboard (Original)",
+    "description": "",
+    "template_variables": [],
+    "widgets": [
+        {
+            "board_id": 266592,
+            "height": 10,
+            "margin": "small",
+            "sizing": "fit",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "image",
+            "url": "https://viewpoint.com/Portals/0/viewpoint-logo-2017.png?ver=2017-06-01-162220-200",
+            "width": 15,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "board_id": 266592,
+            "event_size": "l",
+            "height": 56,
+            "query": "status:error ",
+            "tags_execution": "and",
+            "timeframe": "1w",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Critical Alerts",
+            "type": "event_stream",
+            "width": 46,
+            "x": 0,
+            "y": 23
+        },
+        {
+            "add_timeframe": false,
+            "board_id": 266592,
+            "height": 19,
+            "legend": null,
+            "legend_size": null,
+            "query": "avg:system.load.1{*} by {host}",
+            "tile_def": {
+                "group": [
+                    "sql"
+                ],
+                "groupby": null,
+                "noGroupHosts": true,
+                "noMetricHosts": true,
+                "notes": null,
+                "requests": [
+                    {
+                        "q": "avg:system.cpu.idle{*} by {host}",
+                        "type": "fill"
+                    }
+                ],
+                "scope": null,
+                "style": {
+                    "fillMax": 100,
+                    "fillMin": 0,
+                    "palette": "YlOrRd",
+                    "paletteFlip": true
+                },
+                "viz": "hostmap"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "CPU Usage by SQL Role",
+            "type": "hostmap",
+            "width": 46,
+            "x": 47,
+            "y": 30
+        },
+        {
+            "board_id": 266592,
+            "colorPreference": "background",
+            "displayFormat": "counts",
+            "edit": true,
+            "height": 10,
+            "hideZeroCounts": true,
+            "new_widget": false,
+            "params": {
+                "count": 50,
+                "sort": "status,asc",
+                "start": 0,
+                "text": ""
+            },
+            "showTitle": true,
+            "timeframe": "1h",
+            "title": true,
+            "titleAlign": "left",
+            "titleSize": "13",
+            "titleText": "Alerts",
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "manage_status",
+            "userEditedTitle": false,
+            "widgetID": 5,
+            "width": 30,
+            "x": 16,
+            "y": 0
+        },
+        {
+            "board_id": 266592,
+            "height": 6,
+            "margin": "",
+            "sizing": "fit",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "image",
+            "url": "/static/images/saas_logos/bot/sql_server.png",
+            "width": 15,
+            "x": 94,
+            "y": 0
+        },
+        {
+            "autoscale": true,
+            "board_id": 266592,
+            "height": 4,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": false,
+                "custom_unit": "%",
+                "precision": "1",
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_green",
+                                "value": "0.90"
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_red",
+                                "value": "0.90"
+                            }
+                        ],
+                        "q": "avg:sqlserver.buffer.cache_hit_ratio{*}*100",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "5m",
+            "title": true,
+            "title_align": "left",
+            "title_size": 13,
+            "title_text": "Buffer cache hit ratio",
+            "type": "query_value",
+            "width": 15,
+            "x": 110,
+            "y": 0
+        },
+        {
+            "autoscale": true,
+            "board_id": 266592,
+            "height": 4,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": false,
+                "custom_unit": " ",
+                "precision": "0",
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_green",
+                                "value": "100"
+                            }
+                        ],
+                        "q": "sum:sqlserver.stats.connections{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "5m",
+            "title": true,
+            "title_align": "left",
+            "title_size": 13,
+            "title_text": "User Connections",
+            "type": "query_value",
+            "width": 15,
+            "x": 94,
+            "y": 7
+        },
+        {
+            "autoscale": true,
+            "board_id": 266592,
+            "height": 4,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "custom_unit": " ",
+                "precision": "0",
+                "requests": [
+                    {
+                        "aggregator": "sum",
+                        "conditional_formats": [
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_green",
+                                "value": "10"
+                            }
+                        ],
+                        "q": "sum:sqlserver.stats.procs_blocked{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "5m",
+            "title": true,
+            "title_align": "left",
+            "title_size": 13,
+            "title_text": "Blocked Procs",
+            "type": "query_value",
+            "width": 14,
+            "x": 126,
+            "y": 0
+        },
+        {
+            "board_id": 266592,
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:sqlserver.stats.connections{*} by {host}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "User Connections by Host",
+            "type": "timeseries",
+            "width": 46,
+            "x": 94,
+            "y": 14
+        },
+        {
+            "board_id": 266592,
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:sqlserver.stats.batch_requests{*} by {host}",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Batch Requests / sec",
+            "type": "timeseries",
+            "width": 46,
+            "x": 94,
+            "y": 30
+        },
+        {
+            "auto_refresh": false,
+            "bgcolor": "blue",
+            "board_id": 266592,
+            "font_size": "18",
+            "height": 5,
+            "html": "Blocking Metrics",
+            "refresh_every": 30000,
+            "text_align": "center",
+            "tick": false,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "note",
+            "width": 46,
+            "x": 94,
+            "y": 46
+        },
+        {
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:sqlserver.stats.lock_waits{*} by {host}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Lock Waits",
+            "type": "timeseries",
+            "width": 46,
+            "x": 94,
+            "y": 52
+        },
+        {
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:sqlserver.stats.procs_blocked{*} by {host}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Blocked Processes",
+            "type": "timeseries",
+            "width": 46,
+            "x": 94,
+            "y": 67
+        },
+        {
+            "autoscale": true,
+            "board_id": 266592,
+            "height": 4,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": "10"
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": "6"
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": "5"
+                            }
+                        ],
+                        "q": "sum:sqlserver.stats.lock_waits{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "5m",
+            "title": true,
+            "title_align": "left",
+            "title_size": 13,
+            "title_text": "Lock waits",
+            "type": "query_value",
+            "width": 14,
+            "x": 126,
+            "y": 7
+        },
+        {
+            "autoscale": true,
+            "board_id": 266592,
+            "height": 4,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": "100"
+                            },
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_yellow",
+                                "value": "100"
+                            },
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_red",
+                                "value": "20"
+                            }
+                        ],
+                        "q": "sum:sqlserver.stats.batch_requests{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "5m",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Batch Requests / sec",
+            "type": "query_value",
+            "width": 15,
+            "x": 110,
+            "y": 7
+        },
+        {
+            "autoscale": true,
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": "100000"
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": null
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": "100000"
+                            }
+                        ],
+                        "q": "(avg:system.mem.free{*}*0.00104858)-(hour_before(avg:system.mem.free{*})*0.00104858)",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "RAM Usage Change",
+            "type": "query_value",
+            "width": 16,
+            "x": 77,
+            "y": 0
+        },
+        {
+            "autoscale": true,
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": "5"
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": "4"
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": "4"
+                            }
+                        ],
+                        "q": "hour_before(avg:system.cpu.user{*})-avg:system.cpu.user{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "CPU Usage Change",
+            "type": "query_value",
+            "width": 16,
+            "x": 77,
+            "y": 15
+        },
+        {
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "anomalies(avg:system.net.bytes_rcvd{*}.rollup(avg, 10), 'agile', 4)",
+                        "style": {
+                            "palette": "cool",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Inbound Network Traffic",
+            "type": "timeseries",
+            "width": 46,
+            "x": 47,
+            "y": 52
+        },
+        {
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "anomalies(avg:system.net.bytes_sent{*}, 'agile', 4)",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Outbound Network Traffic",
+            "type": "timeseries",
+            "width": 46,
+            "x": 47,
+            "y": 67
+        },
+        {
+            "board_id": 266592,
+            "height": 9,
+            "query": "status:error ",
+            "tags_execution": "and",
+            "timeframe": "1d",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Alert Timeline",
+            "type": "event_timeline",
+            "width": 46,
+            "x": 0,
+            "y": 11
+        },
+        {
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "conditional_formats": [
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_red",
+                                "value": 500000000
+                            },
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_yellow",
+                                "value": 1000000000
+                            },
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": 1000000000
+                            }
+                        ],
+                        "q": "top(avg:system.mem.free{*} by {host}, 5, 'mean', 'asc')",
+                        "style": {
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Hosts Critical - Memory",
+            "type": "toplist",
+            "width": 29,
+            "x": 47,
+            "y": 0
+        },
+        {
+            "board_id": 266592,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "conditional_formats": [
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_red",
+                                "value": 33
+                            },
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_yellow",
+                                "value": 66
+                            },
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": 66
+                            }
+                        ],
+                        "q": "top(avg:system.cpu.idle{*} by {host}, 5, 'mean', 'asc')",
+                        "style": {
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Hosts Critical - CPU",
+            "type": "toplist",
+            "width": 29,
+            "x": 47,
+            "y": 15
+        }
+    ],
+    "width": "100%"
+}
