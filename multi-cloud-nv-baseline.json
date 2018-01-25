@@ -1,0 +1,965 @@
+{
+    "board_title": "Multi-cloud Baseline Screenboard (bb)",
+    "description": "",
+    "template_variables": [
+        {
+            "default": "*",
+            "name": "aws_availability_zone",
+            "prefix": "availability-zone"
+        },
+        {
+            "default": "*",
+            "name": "gcp_project",
+            "prefix": "project"
+        },
+        {
+            "default": "*",
+            "name": "rds_db_instance",
+            "prefix": "dbinstanceidentifier"
+        }
+    ],
+    "widgets": [
+        {
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:aws.ec2.network_out{$aws_availability_zone} by {name}",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "EC2 Network Out by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 41
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:aws.ec2.network_in{$aws_availability_zone} by {name}",
+                        "style": {
+                            "palette": "cool",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "EC2 Network In by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 25
+        },
+        {
+            "aggr": "sum",
+            "aggregator": "max",
+            "autoscale": true,
+            "calc_func": "raw",
+            "conditional_formats": [
+                {
+                    "comparator": ">",
+                    "custom_bg_color": null,
+                    "custom_fg_color": null,
+                    "invert": false,
+                    "palette": "white_on_red",
+                    "value": 0
+                },
+                {
+                    "comparator": "<=",
+                    "custom_bg_color": null,
+                    "custom_fg_color": null,
+                    "invert": false,
+                    "palette": "white_on_green",
+                    "value": 0
+                }
+            ],
+            "custom_unit": null,
+            "height": 7,
+            "is_valid_query": true,
+            "legend": false,
+            "legend_size": "0",
+            "metric": "aws.elb.un_healthy_host_count",
+            "metric_type": "standard",
+            "precision": 0,
+            "query": "sum:aws.elb.un_healthy_host_count{$scope}",
+            "res_calc_func": "raw",
+            "tags": [
+                "$scope"
+            ],
+            "text_align": "center",
+            "text_size": "auto",
+            "tile_def": {
+                "autoscale": true,
+                "custom_unit": null,
+                "precision": 0,
+                "requests": [
+                    {
+                        "aggregator": "max",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "custom_bg_color": null,
+                                "custom_fg_color": null,
+                                "invert": false,
+                                "palette": "white_on_red",
+                                "value": 0
+                            },
+                            {
+                                "comparator": "<=",
+                                "custom_bg_color": null,
+                                "custom_fg_color": null,
+                                "invert": false,
+                                "palette": "white_on_green",
+                                "value": 0
+                            }
+                        ],
+                        "q": "sum:aws.elb.un_healthy_host_count{availability-zone:us-east-1b}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "text_align": "left",
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 13,
+            "title_text": "Unhealthy Hosts",
+            "type": "query_value",
+            "width": 11,
+            "x": 36,
+            "y": 0
+        },
+        {
+            "aggr": "sum",
+            "aggregator": "min",
+            "autoscale": true,
+            "calc_func": "raw",
+            "conditional_formats": [
+                {
+                    "comparator": ">",
+                    "custom_bg_color": null,
+                    "custom_fg_color": null,
+                    "invert": false,
+                    "palette": "green_on_white",
+                    "value": 0
+                },
+                {
+                    "comparator": "<=",
+                    "custom_bg_color": null,
+                    "custom_fg_color": null,
+                    "invert": false,
+                    "palette": "red_on_white",
+                    "value": 0
+                }
+            ],
+            "custom_unit": null,
+            "height": 7,
+            "is_valid_query": true,
+            "legend": false,
+            "legend_size": "0",
+            "metric": "aws.elb.healthy_host_count",
+            "metric_type": "standard",
+            "precision": 0,
+            "query": "sum:aws.elb.healthy_host_count{$scope}",
+            "res_calc_func": "raw",
+            "tags": [
+                "$scope"
+            ],
+            "text_align": "center",
+            "text_size": "auto",
+            "tile_def": {
+                "autoscale": true,
+                "custom_unit": null,
+                "precision": 0,
+                "requests": [
+                    {
+                        "aggregator": "min",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "custom_bg_color": null,
+                                "custom_fg_color": null,
+                                "invert": false,
+                                "palette": "green_on_white",
+                                "value": 0
+                            },
+                            {
+                                "comparator": "<=",
+                                "custom_bg_color": null,
+                                "custom_fg_color": null,
+                                "invert": false,
+                                "palette": "red_on_white",
+                                "value": 0
+                            }
+                        ],
+                        "q": "sum:aws.elb.healthy_host_count{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "text_align": "left",
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 13,
+            "title_text": "Healthy Hosts",
+            "type": "query_value",
+            "width": 10,
+            "x": 25,
+            "y": 0
+        },
+        {
+            "board_id": 33142,
+            "height": 9,
+            "margin": "",
+            "sizing": "zoom",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "image",
+            "url": "https://app.datadoghq.com/static/images/saas_logos/bot/amazon_ec2.png",
+            "width": 13,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "board_id": 33142,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "top(avg:aws.ec2.cpuutilization{$aws_availability_zone} by {name}, 10, 'mean', 'desc')",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "EC2 CPU Utilization by Host (top 10)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 10
+        },
+        {
+            "board_id": 61874,
+            "check": "aws.status",
+            "group": null,
+            "group_by": [],
+            "grouping": "cluster",
+            "height": 9,
+            "tags": [
+                "service:ec2"
+            ],
+            "text_align": "center",
+            "text_size": "auto",
+            "timeframe": "10m",
+            "title": true,
+            "title_align": "center",
+            "title_size": 13,
+            "title_text": "EC2 service status",
+            "type": "check_status",
+            "width": 10,
+            "x": 14,
+            "y": 0
+        },
+        {
+            "board_id": 225220,
+            "colorPreference": "text",
+            "displayFormat": "countsAndList",
+            "edit": true,
+            "height": 40,
+            "hideZeroCounts": true,
+            "new_widget": false,
+            "params": {
+                "count": 50,
+                "sort": "status,asc",
+                "start": 0,
+                "text": ""
+            },
+            "showTitle": true,
+            "timeframe": "1h",
+            "title": true,
+            "titleAlign": "left",
+            "titleSize": "13",
+            "titleText": "Monitor Status",
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "manage_status",
+            "userEditedTitle": false,
+            "widgetID": 49,
+            "width": 47,
+            "x": 144,
+            "y": 0
+        },
+        {
+            "board_id": 225939,
+            "height": 9,
+            "margin": "",
+            "sizing": "fit",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "image",
+            "url": "/static/images/saas_logos/bot/google_compute_engine.png ",
+            "width": 20,
+            "x": 48,
+            "y": 0
+        },
+        {
+            "autoscale": true,
+            "board_id": 225939,
+            "height": 7,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "precision": "0",
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": "100"
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": "5"
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_red",
+                                "value": "4"
+                            }
+                        ],
+                        "q": "avg:gcp.gce.project.quota.snapshots.limit{*}-avg:gcp.gce.project.quota.snapshots.usage{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Snapshots",
+            "type": "query_value",
+            "width": 13,
+            "x": 69,
+            "y": 0
+        },
+        {
+            "autoscale": true,
+            "board_id": 225939,
+            "height": 7,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "precision": "0",
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": "10"
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": "9"
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_red",
+                                "value": "8"
+                            }
+                        ],
+                        "q": "avg:gcp.gce.project.quota.images.limit{*}-avg:gcp.gce.project.quota.images.usage{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Images",
+            "type": "query_value",
+            "width": 12,
+            "x": 83,
+            "y": 0
+        },
+        {
+            "board_id": 225939,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:gcp.gce.instance.cpu.utilization{$gcp_project} by {name}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "GCE CPU Utilization",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 10
+        },
+        {
+            "board_id": 225939,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:azure.vm.percentage_cpu{*} by {name}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Azure CPU by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 96,
+            "y": 10
+        },
+        {
+            "board_id": 225939,
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:azure.vm.network_in{*} by {name}",
+                        "style": {
+                            "palette": "cool",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Azure Network In by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 96,
+            "y": 25
+        },
+        {
+            "board_id": 225939,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "sum:azure.vm.disk_read_operations_sec{*} by {name}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "status": "done",
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Azure Write I/O by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 96,
+            "y": 71
+        },
+        {
+            "board_id": 225939,
+            "height": 9,
+            "margin": "",
+            "sizing": "fit",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "image",
+            "url": "/static/images/saas_logos/bot/azure_vm.png",
+            "width": 18,
+            "x": 96,
+            "y": 0
+        },
+        {
+            "autoscale": true,
+            "board_id": 225939,
+            "height": 7,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "custom_unit": null,
+                "precision": "0",
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "sum:azure.vm.status{*}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "text_align": "center",
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Running VMs",
+            "type": "query_value",
+            "width": 13,
+            "x": 115,
+            "y": 0
+        },
+        {
+            "autoscale": true,
+            "board_id": 225939,
+            "height": 7,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "custom_unit": null,
+                "precision": "0",
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "invert": false,
+                                "palette": "white_on_red",
+                                "value": 1
+                            }
+                        ],
+                        "q": "sum:azure.vm.status{status:not_running}, 0",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": null
+                    }
+                ],
+                "text_align": "center",
+                "viz": "query_value"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Stopped VMs",
+            "type": "query_value",
+            "width": 14,
+            "x": 129,
+            "y": 0
+        },
+        {
+            "board_id": 271471,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:gcp.gce.instance.network.sent_bytes_count{$gcp_project} by {name}.as_rate()",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "GCE Network Out by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 41
+        },
+        {
+            "board_id": 271471,
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:gcp.gce.instance.network.received_bytes_count{$gcp_project} by {name}.as_rate()",
+                        "style": {
+                            "palette": "cool",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "GCE Network In by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 25
+        },
+        {
+            "board_id": 271522,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:azure.vm.network_out{*} by {name}",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Azure Network Out by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 96,
+            "y": 41
+        },
+        {
+            "board_id": 271522,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:azure.vm.disk_read_operations_sec{*} by {name}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Azure Read I/O by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 96,
+            "y": 56
+        },
+        {
+            "board_id": 271522,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:aws.ec2.ebswrite_bytes{$aws_availability_zone} by {host}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "EC2 EBS Write Bytes by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 71
+        },
+        {
+            "board_id": 271522,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:aws.ec2.ebsread_bytes{$aws_availability_zone} by {host}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "EC2 EBC Read Bytes by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 56
+        },
+        {
+            "board_id": 271522,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:gcp.gce.instance.disk.read_ops_count{*} by {name}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "4h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "GCE Read I/O by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 56
+        },
+        {
+            "board_id": 271522,
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "autoscale": true,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "conditional_formats": [],
+                        "q": "avg:gcp.gce.instance.disk.write_ops_count{*} by {name}.as_rate()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries"
+            },
+            "timeframe": "1h",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "GCE Write I/O by VM",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 71
+        },
+        {
+            "board_id": 271522,
+            "event_size": "l",
+            "height": 42,
+            "query": "* ",
+            "tags_execution": "and",
+            "timeframe": "1d",
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "",
+            "type": "event_stream",
+            "width": 47,
+            "x": 144,
+            "y": 41
+        }
+    ],
+    "width": "100%"
+}
